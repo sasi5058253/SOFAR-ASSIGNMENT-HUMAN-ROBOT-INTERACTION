@@ -6,12 +6,14 @@ This package contains part of the materials necessary to run the assignment for 
 A list of the other necessary packages are presented at the end of this document.
 
 **Compiling and Running**
+
 After installing all the packages in a ROS workspace (the project has been developed and tested in Noetic) run
 
 .../ros_ws$ catkin_make
 TWICE, since one of the other legacy packages seems to have a dependancy issue and will throw a series of warning the first time. Ignore them, recompile, and if warnings or error still persist there might be something off with your configuration, be sure all packages are correctly installed and the ROS workspace sourced.
 
 **Baxter - Unity Simulation**
+
 First of all follow the steps presented at the SofAR-Human-Robot-Collaboration repository (link at the end) to set up the Unity Environment. Then pass to your ROS system for the following steps. A few components need to be run, so as many separate shells should be open at the same time:
 
 1.Unity - ROS connection
@@ -31,7 +33,9 @@ no motion tracking is performed in the real scenario, hence the human tf's are o
 collision detection does not mean collision avoidance: dynamic obstacles are not avoided and the plan is not modified at runtime. When a possible collision (distance lower then threshold) is detected, the ongoing trajectory is stopped (by sending a message to the simulation) and the FSM is informed of type (severity) of the collision.
 a. "LOW" for human-robot collisions: being the human very mobile and relatively fast compared to the robot, the FSM simply stops and re-plans for the previous state
 b. "HIGH", for robot-robot collisions: the robot is slower, but it could repeat the same collision-prone movements if a simple replanning was asked. That's why in this case the FSM goes into the ERROR STATE, bringing the arms to their initial joint states, waiting for a random (thus different for each arm) amount of time before trying to re-plan from scratch.
+
 **Real world test**
+
 The implementation of the system in a real world test does follow almost entirely the same steps already presented, since the limited system we're gonna use does rely on the simulation for the entire sensing part (minus robot proprioception). Unity simulation should be launched as in the previous case. Remember to correctly export the ROS master IP and port that will be present in the local network. The steps are thus as follows:
 
 1.Unity - ROS connection
