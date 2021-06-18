@@ -17,14 +17,17 @@ TWICE, since one of the other legacy packages seems to have a dependancy issue a
 First of all follow the steps presented at the SofAR-Human-Robot-Collaboration repository (link at the end) to set up the Unity Environment. Then pass to your ROS system for the following steps. A few components need to be run, so as many separate shells should be open at the same time:
 
 1.Unity - ROS connection
+
 .../ros_ws$ roslaunch human_baxter_collaboration human_baxter_collaboration.launch
 Wait for the green text to appear, then start the Unity simulation ('Play' button). This will initiate the connection between the simulation and the ROS environment.
 
 2.Finite State Machine
+
 .../ros_ws$ roslaunch sofar_hbc_01 sofar_hbc_01.launch
 Ignore the warnings, here as well ae simply due to legacy code. Once the systems starts running you can pass to the third (optional) phase.
 
 3.Collision Detection (optional)
+
 .../ros_ws$ rosrun sofar_hbc_01 collision_detection
 This will start the node responsible of tracking collisions (better said, distances) between Baxter and the human, as well as between the two Baxter arms, in real time. This node is not necessary, and has quite a few limitations:
 
@@ -39,16 +42,20 @@ b. "HIGH", for robot-robot collisions: the robot is slower, but it could repeat 
 The implementation of the system in a real world test does follow almost entirely the same steps already presented, since the limited system we're gonna use does rely on the simulation for the entire sensing part (minus robot proprioception). Unity simulation should be launched as in the previous case. Remember to correctly export the ROS master IP and port that will be present in the local network. The steps are thus as follows:
 
 1.Unity - ROS connection
+
 .../ros_ws$ roslaunch human_baxter_collaboration human_baxter_collaboration.launch
 Robot Controller
+
 .../ros_ws$ roslaunch sofar_hbc_01 joint_trajectory_client.launch
 Forward the trajectories to the actual robot.
 
 2.Finite State Machine
+
 .../ros_ws$ roslaunch sofar_hbc_01 lab_sofar_hbc_01.launch
 Launches a node which forwards the gripper commands to the robot, together with all the other nodes described.
 
 3.Collision Detection (optional)
+
 .../ros_ws$ rosrun sofar_hbc_01 collision_detection
 Might be counterproductive in the real scenario, use with care.
 
